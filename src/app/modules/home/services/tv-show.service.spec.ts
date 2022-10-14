@@ -20,9 +20,26 @@ describe('TvShowService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should perform a get call when user search shows', () => {
-    const expectedPath = 'https://api.tvmaze.com/search/shows?q=Show';
-    service.searchShows();
-    expect(httpSpy.get).toHaveBeenCalledWith(expectedPath as any);
+  describe('searchShows', () => {
+    it('should perform a get call with a default param when its called without params', () => {
+      const expectedPath = `https://api.tvmaze.com/search/shows?q=${service.defaultSearchParam}`;
+      service.searchShows();
+      expect(httpSpy.get).toHaveBeenCalledWith(expectedPath);
+    });
+
+    it('should perform a get call sending the params retrieved', () => {
+      const param = 'Friends';
+      const expectedPath = `https://api.tvmaze.com/search/shows?q=${param}`;
+      service.searchShows(param);
+      expect(httpSpy.get).toHaveBeenCalledWith(expectedPath);
+    });
   });
+
+  it('getShowById should perform the expected call', () => {
+    const showId = 18;
+    const expectedPath = `https://api.tvmaze.com/shows/${showId}`;
+    service.getShowById(showId);
+    expect(httpSpy.get).toHaveBeenCalledWith(expectedPath);
+  })
+
 });

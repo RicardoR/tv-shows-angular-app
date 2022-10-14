@@ -11,14 +11,14 @@ import { SearchShowResponse, Show } from '../interfaces/show.interface';
 })
 export class TvShowService {
 
-  readonly initSearchValue = 'Show';
+  readonly defaultSearchParam = 'Show';
   readonly basePath = environment.tvmazeApiUrl;
 
   private _lastSearchParam: string;
 
   constructor(private http: HttpClient) { }
 
-  searchShows(param: string = this.initSearchValue): Observable<SearchShowResponse[]> {
+  searchShows(param: string = this.defaultSearchParam): Observable<SearchShowResponse[]> {
     this._lastSearchParam = param;
     const searchPath =
       `${this.basePath}/${HomeConstants.searchRoute}/${HomeConstants.showsRoute}${HomeConstants.queryParam}${HomeConstants.showSearchQueryParam}${param}`;
@@ -29,7 +29,6 @@ export class TvShowService {
     const getShowPath = `${this.basePath}/${HomeConstants.showsRoute}/${showId}`;
     return this.http.get<Show>(getShowPath);
   }
-
 
   get lastSearchParam(): string {
     return this._lastSearchParam;
