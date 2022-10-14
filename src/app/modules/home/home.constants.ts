@@ -1,7 +1,7 @@
 const HomeApiConstants = {
   searchRoute: 'search',
   showsRoute: 'shows',
-  showSearchQueryParam: 'q=show',
+  showSearchQueryParam: 'q=',
   queryParam: '?',
 }
 

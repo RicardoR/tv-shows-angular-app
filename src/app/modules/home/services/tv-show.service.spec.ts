@@ -21,7 +21,7 @@ describe('TvShowService', () => {
   });
 
   it('should perform a get call when user search shows', () => {
-    const expectedPath = 'http://api.tvmaze.com/search/shows?q=show';
+    const expectedPath = 'http://api.tvmaze.com/search/shows?q=Show';
     service.searchShows();
     expect(httpSpy.get).toHaveBeenCalledWith(expectedPath as any);
   });

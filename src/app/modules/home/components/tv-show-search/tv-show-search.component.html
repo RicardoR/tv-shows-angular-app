@@ -1,0 +1,11 @@
+<form [formGroup]='form'>
+  <mat-form-field appearance="fill">
+    <mat-label>Search Show</mat-label>
+    <input (input)="writeValue()"
+           [value]="value"
+           autocomplete="off"
+           formControlName="searchTvShow"
+           matInput
+           type="text">
+  </mat-form-field>
+</form>
