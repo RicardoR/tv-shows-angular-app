@@ -1,1 +1,24 @@
-<p>tv-show-details works!</p>
+<article *ngIf="showDetails$ | async as show">
+  <a mat-flat-button
+     class="show-details__back-button"
+     title="Back to the main list"
+     (click)="goToList()">Back to list</a>
+  <h1> {{ show.name }} </h1>
+
+  <div class="show-details__figure">
+    <figure>
+      <img [src]="show.image.medium" [alt]="show.name">
+      <div class="show-details__rating" *ngIf="show.rating.average !== null; else noRating">
+        <app-rating [rating]="show.rating.average"></app-rating>
+      </div>
+    </figure>
+    <div class="show-details__info">
+      <div class="show-details__summary" [innerHTML]="show.summary"></div>
+      <mat-chip-list>
+        <mat-chip *ngFor="let genre of show.genres"> {{ genre }}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</article>
+
+<ng-template #noRating><p>No rating available</p></ng-template>

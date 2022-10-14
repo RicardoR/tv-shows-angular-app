@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 
-import { SearchShowResponse, Show } from '../../interfaces/show.interface';
 import { TvShowService } from '../../services/tv-show.service';
+import { SearchShowResponse, Show } from '../../interfaces/show.interface';
+import { HomeRoutes } from '../../home.routes';
 
 @Component({
   selector: 'app-tv-show-list',
@@ -13,7 +15,11 @@ export class TvShowListComponent implements OnInit {
 
   showList$: Observable<Show[]>;
 
-  constructor(private tvShowService: TvShowService) { }
+  constructor(
+    private tvShowService: TvShowService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.showList$ = this.tvShowService.searchShows()
@@ -23,4 +29,7 @@ export class TvShowListComponent implements OnInit {
       )
   }
 
+  goToShow(show: Show): void {
+    this.router.navigate([HomeRoutes.showDetails.path, show.id], {relativeTo: this.activatedRoute});
+  }
 }

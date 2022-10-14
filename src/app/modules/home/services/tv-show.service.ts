@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { HomeConstants } from '../home.constants';
 import { environment } from '../../../../environments/environment';
-import { SearchShowResponse } from '../interfaces/show.interface';
+import { SearchShowResponse, Show } from '../interfaces/show.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +19,10 @@ export class TvShowService {
     const searchPath =
       `${this.basePath}/${HomeConstants.searchRoute}/${HomeConstants.showsRoute}${HomeConstants.queryParam}${HomeConstants.showSearchQueryParam}`;
     return this.http.get<SearchShowResponse[]>(searchPath);
+  }
+
+  getShowById(showId: number): Observable<Show> {
+    const getShowPath = `${this.basePath}/${HomeConstants.showsRoute}/${showId}`;
+    return this.http.get<Show>(getShowPath);
   }
 }

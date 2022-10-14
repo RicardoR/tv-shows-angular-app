@@ -1,0 +1,33 @@
+
+.show-details__back-button {
+  cursor: pointer;
+  padding-left: 0;
+  color: #3f51b5;
+}
+
+.show-details {
+  max-width: 400px;
+}
+
+.show-details__figure {
+  display: flex;
+}
+
+.show-details__info {
+  margin-top: 10px;
+}
+
+.show-details__summary {
+  margin-bottom: 20px;
+}
+
+.show-details__rating {
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .show-details__figure {
+    flex-direction: column;
+    align-items: center;
+  }
+}

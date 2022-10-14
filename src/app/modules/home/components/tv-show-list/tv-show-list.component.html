@@ -1,7 +1,9 @@
 <h1> Tv Shows List </h1>
 <div class="show-card__grid">
   <ng-container *ngFor="let show of showList$ | async">
-    <mat-card class="show-card mat-elevation-z4">
+    <mat-card class="show-card mat-elevation-z4"
+              title="Go to show details"
+              (click)="goToShow(show)">
       <mat-card-header>
         <mat-card-title> {{show.name}} </mat-card-title>
       </mat-card-header>
@@ -10,7 +12,7 @@
         <ng-container *ngIf="show.rating.average !== null; else noRating">
           <p>Rating: {{ show.rating.average }}</p>
         </ng-container>
-        <ng-template #noRating> <p>No rating available</p></ng-template>
+        <ng-template #noRating><p>No rating available</p></ng-template>
       </mat-card-content>
     </mat-card>
   </ng-container>

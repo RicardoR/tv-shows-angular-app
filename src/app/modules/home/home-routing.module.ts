@@ -12,7 +12,7 @@ const routes: Routes = [
     title: HomeRoutes.showList.title
   },
   {
-    path: HomeRoutes.showDetails.path,
+    path: `${HomeRoutes.showDetails.path}/:id`,
     component: TvShowDetailsComponent,
     title: HomeRoutes.showDetails.title
   }
