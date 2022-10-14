@@ -1,1 +1,3 @@
-<p>tv-show-list works!</p>
+<ng-container *ngFor="let show of showList$ | async">
+  <p>{{ show.name }}</p>
+</ng-container>
