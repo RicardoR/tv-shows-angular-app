@@ -1,0 +1,28 @@
+:host {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 45px;
+  place-items: center;
+}
+
+.show__card {
+  max-width: 250px;
+}
+
+.show__image-preview {
+  height: 290px;
+  object-fit: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  :host {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  :host {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

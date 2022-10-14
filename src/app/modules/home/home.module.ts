@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TvShowListComponent } from './components/tv-show-list/tv-show-list.component';
 import { TvShowDetailsComponent } from './components/tv-show-details/tv-show-details.component';
 import { HomeRoutingModule } from './home-routing.module';
+import { AngularMaterialModule } from '../shared/angular-material.module';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { HomeRoutingModule } from './home-routing.module';
   ],
   imports: [
     CommonModule,
+    AngularMaterialModule,
     HomeRoutingModule
   ]
 })
