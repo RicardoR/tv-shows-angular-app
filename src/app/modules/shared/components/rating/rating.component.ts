@@ -9,8 +9,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./rating.component.scss']
 })
 export class RatingComponent implements AfterViewInit {
-  @ViewChild('ratingStars') ratingStars: ElementRef;
+  private numberOfStars = 10;
 
+  @ViewChild('ratingStars') ratingStars: ElementRef;
   @Input() rating: number;
 
   ngAfterViewInit(): void {
@@ -21,7 +22,7 @@ export class RatingComponent implements AfterViewInit {
 
   private updateRatingWith(): void {
     const originalWidth = this.ratingStars.nativeElement.clientWidth;
-    const calculatedWidth = Math.round(originalWidth * (this.rating / 10));
+    const calculatedWidth = Math.round(originalWidth * (this.rating / this.numberOfStars));
     this.ratingStars.nativeElement.style.width = `${calculatedWidth}px`;
   }
 }
