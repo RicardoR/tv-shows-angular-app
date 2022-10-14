@@ -1,13 +1,17 @@
-<ng-container *ngFor="let show of showList$ | async">
-  <mat-card class="show__card">
-    <mat-card-header>
-      <mat-card-title> {{show.name}} </mat-card-title>
-    </mat-card-header>
-    <img mat-card-image class="show__image-preview" [src]="show.image.medium" [alt]="show.name">
-    <mat-card-content>
-      <!-- todo: create a rating component -->
-      <p *ngIf="show.rating.average !== null; else noRating"> {{ show.rating.average }} </p>
-      <ng-template #noRating> Na </ng-template>
-    </mat-card-content>
-  </mat-card>
-</ng-container>
+<h1> Tv Shows List </h1>
+<div class="show-card__grid">
+  <ng-container *ngFor="let show of showList$ | async">
+    <mat-card class="show-card mat-elevation-z4">
+      <mat-card-header>
+        <mat-card-title> {{show.name}} </mat-card-title>
+      </mat-card-header>
+      <img mat-card-image class="show-card__image" [src]="show.image.medium" [alt]="show.name">
+      <mat-card-content>
+        <ng-container *ngIf="show.rating.average !== null; else noRating">
+          <p>Rating: {{ show.rating.average }}</p>
+        </ng-container>
+        <ng-template #noRating> <p>No rating available</p></ng-template>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+</div>

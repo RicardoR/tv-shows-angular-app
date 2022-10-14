@@ -4,6 +4,7 @@ import { TvShowListComponent } from './components/tv-show-list/tv-show-list.comp
 import { TvShowDetailsComponent } from './components/tv-show-details/tv-show-details.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { AngularMaterialModule } from '../shared/angular-material.module';
+import { RatingComponent } from '../shared/components/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,10 @@ import { AngularMaterialModule } from '../shared/angular-material.module';
   imports: [
     CommonModule,
     AngularMaterialModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+
+    // Standalone Components
+    RatingComponent
   ]
 })
 export class HomeModule { }
