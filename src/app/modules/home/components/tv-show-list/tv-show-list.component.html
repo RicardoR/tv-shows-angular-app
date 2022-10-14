@@ -1,4 +1,7 @@
 <h1> Tv Shows List </h1>
+<app-tv-show-search [formControl]="searchForm"
+                    [value]="lastSearchData">
+</app-tv-show-search>
 <div class="show-card__grid">
   <ng-container *ngFor="let show of showList$ | async">
     <mat-card class="show-card mat-elevation-z4"
@@ -8,7 +11,10 @@
         <mat-card-title> {{show.name}} </mat-card-title>
       </mat-card-header>
       <ng-container *ngIf="show.image?.medium; else noImageTemplate">
-        <img mat-card-image class="show-card__image" [src]="show.image.medium" [alt]="show.name">
+        <img mat-card-image
+             class="show-card__image"
+             [src]="show.image.medium"
+             [alt]="show.name">
       </ng-container>
       <mat-card-content>
         <ng-container *ngIf="show.rating.average !== null; else noRating">
