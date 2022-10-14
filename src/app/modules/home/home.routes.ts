@@ -4,7 +4,7 @@ export const HomeRoutes = {
     title: 'Tv Shows list'
   },
   showDetails: {
-    path: 'show/:id',
+    path: 'show',
     title: 'Tv Show Details'
   }
 }
