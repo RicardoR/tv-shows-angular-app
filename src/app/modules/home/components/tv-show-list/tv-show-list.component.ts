@@ -44,8 +44,8 @@ export class TvShowListComponent implements OnInit, OnDestroy {
     this.searchForm.valueChanges
       .pipe(
         takeUntil<any>(this.onDestroy$),
+        debounceTime(300),
         tap(data => this.setList(data)),
-        debounceTime(500),
       ).subscribe()
   }
 
