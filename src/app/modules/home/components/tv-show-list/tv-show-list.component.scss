@@ -1,24 +1,26 @@
 @use '@angular/material' as mat;
 
+$image-height-default: 290px;
+$image-width-default: 210px;
+$grid-gap: 20px;
+
 .show-card__grid {
   display: grid;
-  grid-gap: 20px;
-  row-gap: 40px;
+  grid-gap: $grid-gap * 2  $grid-gap ;
   grid-template-columns: repeat(3, 1fr);
   place-items: center;
 }
 
 .show-card {
-  max-width: 250px;
   cursor: pointer;
-
   &:hover {
     @include mat.elevation(12);
   }
 }
 
 .show-card__image {
-  height: 290px;
+  height: $image-height-default;
+  width: $image-width-default;
   object-fit: none;
 }
 

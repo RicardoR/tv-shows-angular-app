@@ -38,6 +38,7 @@ describe('TvShowDetailsComponent', () => {
   });
 
   it('should call to back with the showId retrieved in params', () => {
+    component.showDetails$.subscribe();
     expect(tvShowServiceSpy.getShowById).toHaveBeenCalledWith(23);
   });
 

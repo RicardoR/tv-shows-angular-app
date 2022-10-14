@@ -7,7 +7,9 @@
       <mat-card-header>
         <mat-card-title> {{show.name}} </mat-card-title>
       </mat-card-header>
-      <img mat-card-image class="show-card__image" [src]="show.image.medium" [alt]="show.name">
+      <ng-container *ngIf="show.image?.medium; else noImageTemplate">
+        <img mat-card-image class="show-card__image" [src]="show.image.medium" [alt]="show.name">
+      </ng-container>
       <mat-card-content>
         <ng-container *ngIf="show.rating.average !== null; else noRating">
           <p>Rating: {{ show.rating.average }}</p>
@@ -17,3 +19,7 @@
     </mat-card>
   </ng-container>
 </div>
+
+<ng-template #noImageTemplate>
+  <img src="assets/images/no-cover.jpg" class="show-card__image" alt="generic image">
+</ng-template>
