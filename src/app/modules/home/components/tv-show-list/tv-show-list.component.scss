@@ -3,6 +3,7 @@
 $image-height-default: 290px;
 $image-width-default: 210px;
 $grid-gap: 20px;
+$mat-card-image-margin: 16px;
 
 .show-card__grid {
   display: grid;
@@ -20,8 +21,7 @@ $grid-gap: 20px;
 
 .show-card__image {
   height: $image-height-default;
-  width: $image-width-default;
-  object-fit: none;
+  width:  calc($image-width-default + $mat-card-image-margin*2);
 }
 
 @media only screen and (max-width: 1000px) {
@@ -30,6 +30,11 @@ $grid-gap: 20px;
   }
   h1 {
     text-align: center;
+  }
+
+  .show-list__search {
+    display: flex;
+    justify-content: center;
   }
 }
 
