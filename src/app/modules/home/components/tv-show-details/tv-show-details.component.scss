@@ -19,6 +19,10 @@ $margin-top-default: 10px;
   margin-bottom: $margin-top-default * 2;
 }
 
+.show-details__image {
+  max-width: 100%;
+}
+
 @media only screen and (max-width: 600px) {
   .show-details__figure {
     flex-direction: column;

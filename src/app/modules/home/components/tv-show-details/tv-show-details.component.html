@@ -8,7 +8,7 @@
   <div class="show-details__figure">
     <figure>
       <ng-container *ngIf="show.image?.medium; else noImageTemplate">
-        <img [src]="show.image.medium" [alt]="show.name">
+        <img class="show-details__image" [src]="show.image.medium" [alt]="show.name">
       </ng-container>
       <div class="show-details__rating" *ngIf="show.rating?.average !== null; else noRating">
         <app-rating [rating]="show.rating.average"></app-rating>
@@ -25,5 +25,5 @@
 
 <ng-template #noRating><p>No rating available</p></ng-template>
 <ng-template #noImageTemplate>
-  <img src="assets/images/no-cover.jpg" alt="generic image">
+  <img class="show-details__image" src="assets/images/no-cover.jpg" alt="generic image">
 </ng-template>

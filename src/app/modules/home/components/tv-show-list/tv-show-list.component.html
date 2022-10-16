@@ -1,5 +1,6 @@
 <h1> Tv Shows List </h1>
-<app-tv-show-search [formControl]="searchForm"
+<app-tv-show-search class="show-list__search"
+                    [formControl]="searchForm"
                     [value]="lastSearchData">
 </app-tv-show-search>
 <div class="show-card__grid">
@@ -27,5 +28,8 @@
 </div>
 
 <ng-template #noImageTemplate>
-  <img src="assets/images/no-cover.jpg" class="show-card__image" alt="generic image">
+  <img mat-card-image
+       src="assets/images/no-cover.jpg"
+       class="show-card__image"
+       alt="generic image">
 </ng-template>
