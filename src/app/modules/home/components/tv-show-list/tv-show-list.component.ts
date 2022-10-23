@@ -10,12 +10,11 @@ import { HomeRoutes } from '../../home.routes';
 @Component({
   selector: 'app-tv-show-list',
   templateUrl: './tv-show-list.component.html',
-  styleUrls: ['./tv-show-list.component.scss']
+  styleUrls: ['./tv-show-list.component.scss'],
 })
 export class TvShowListComponent implements OnInit, OnDestroy {
-
   showList$: Observable<Show[]>;
-  searchForm = new FormControl();
+  searchForm = new FormControl('Show');
   lastSearchData: string;
   private onDestroy$ = new Subject<void>();
 
@@ -23,7 +22,7 @@ export class TvShowListComponent implements OnInit, OnDestroy {
     private tvShowService: TvShowService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.setList();
@@ -37,7 +36,9 @@ export class TvShowListComponent implements OnInit, OnDestroy {
   }
 
   goToShow(show: Show): void {
-    this.router.navigate([HomeRoutes.showDetails.path, show.id], {relativeTo: this.activatedRoute});
+    this.router.navigate([HomeRoutes.showDetails.path, show.id], {
+      relativeTo: this.activatedRoute,
+    });
   }
 
   private listenToSearchControl(): void {
@@ -45,16 +46,18 @@ export class TvShowListComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil<any>(this.onDestroy$),
         debounceTime(300),
-        tap(data => this.setList(data)),
-      ).subscribe()
+        tap((data) => this.setList(data))
+      )
+      .subscribe();
   }
 
   private setList(searchQuery?: string): void {
     const search = searchQuery ?? this.tvShowService.lastSearchParam;
-    this.showList$ = this.tvShowService.searchShows(search)
-      .pipe(
-        map((data: SearchShowResponse[]) => data.slice(0, 6)),
-        map((data: SearchShowResponse[]) => data.flatMap(showResponse => showResponse.show))
+    this.showList$ = this.tvShowService.searchShows(search).pipe(
+      map((data: SearchShowResponse[]) => data.slice(0, 6)),
+      map((data: SearchShowResponse[]) =>
+        data.flatMap((showResponse) => showResponse.show)
       )
+    );
   }
 }

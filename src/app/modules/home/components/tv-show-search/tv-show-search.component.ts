@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-tv-show-search',
@@ -9,51 +9,36 @@ import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from 
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: TvShowSearchComponent
-    }
-  ]
+      useExisting: TvShowSearchComponent,
+    },
+  ],
 })
-export class TvShowSearchComponent implements OnInit, ControlValueAccessor {
+export class TvShowSearchComponent implements ControlValueAccessor {
+  onChange: any = () => {};
+  onTouch: any = () => {};
+  val = '';
 
-  @Input() value: string;
-
-  form: FormGroup;
-  touched = false;
-
-  constructor(private formBuilder: FormBuilder) {}
-
-  onChange = ({}) => {};
-
-  onTouched = () => {};
-
-  ngOnInit(): void {
-    this.initControl();
-  }
-
-  writeValue(): void {
-    this.value = this.form.controls['searchTvShow'].value;
-    this.onChange(this.value);
-    this.onTouched();
-  }
-
-  registerOnChange(onChange: any): void {
-    this.onChange = onChange;
-  }
-
-  registerOnTouched(onTouched: any): void {
-    this.onTouched = onTouched;
-  }
-
-  markAsTouched(): void {
-    if (!this.touched) {
-      this.onTouched();
-      this.touched = true;
+  set value(val: string) {
+    if (val !== undefined && this.val !== val) {
+      this.val = val;
+      this.onChange(val);
+      this.onTouch(val);
     }
   }
 
-  private initControl(): void {
-    this.form = this.formBuilder.group({
-      searchTvShow: this.formBuilder.control(this.value)
-    });
+  get value(): string {
+    return this.val;
+  }
+
+  writeValue(value: any): void {
+    this.value = value;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
   }
 }

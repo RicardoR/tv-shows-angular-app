@@ -24,16 +24,13 @@ describe('TvShowSearchComponent', () => {
   });
 
   it('should init the formControl', () => {
-    expect(component.form.controls['searchTvShow']).toBeDefined();
+    expect(component.val).toBeDefined();
   });
 
   it('writeValue should register the value', () => {
-    const showToSearch = { searchTvShow: 'Superman' };
-
-    component.value = '';
-    component.form.patchValue(showToSearch);
-    component.writeValue();
-    expect(component.value).toBe(showToSearch.searchTvShow);
+    component.val = '';
+    component.value = 'Superman'
+    expect(component.val).toBe('Superman');
   });
 
   it('registerOnChange should set the onchange', () => {
@@ -42,19 +39,5 @@ describe('TvShowSearchComponent', () => {
     };
     component.registerOnChange(onChangeFn);
     expect(component.onChange).toEqual(onChangeFn);
-  });
-
-  it('registerOnTouched should set the onTouched', () => {
-    const onTouchedFn = () => {
-      return 'test'
-    };
-    component.registerOnTouched(onTouchedFn);
-    expect(component.onTouched).toEqual(onTouchedFn);
-  });
-
-  it('markAsTouched should mark as touched', () => {
-    component.touched = false;
-    component.markAsTouched();
-    expect(component.touched).toBeTrue();
   });
 });

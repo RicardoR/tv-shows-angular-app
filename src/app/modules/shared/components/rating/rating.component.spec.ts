@@ -29,28 +29,28 @@ describe('RatingComponent', () => {
       createComponent();
       component.rating = 1;
       component.ngAfterViewInit();
-      expect(component.ratingStars.nativeElement.style.width).toBe('18px')
+      expect(component.ratingStars.nativeElement.style.width).toBe('20px')
     });
 
     it('should calculate the ratingStarts width for 5 stars', () => {
       createComponent();
       component.rating = 5;
       component.ngAfterViewInit();
-      expect(component.ratingStars.nativeElement.style.width).toBe('90px')
+      expect(component.ratingStars.nativeElement.style.width).toBe('100px')
     });
 
     it('should calculate the ratingStarts width for 5.5 stars', () => {
       createComponent();
       component.rating = 5.5;
       component.ngAfterViewInit();
-      expect(component.ratingStars.nativeElement.style.width).toBe('98px')
+      expect(component.ratingStars.nativeElement.style.width).toBe('110px')
     });
 
     it('should calculate the ratingStarts width for 10 stars', () => {
       createComponent();
       component.rating = 10;
       component.ngAfterViewInit();
-      expect(component.ratingStars.nativeElement.style.width).toBe('179px')
+      expect(component.ratingStars.nativeElement.style.width).toBe('200px')
     });
 
     it('ratingStarts width should be empty for an empty value', () => {
