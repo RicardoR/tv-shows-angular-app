@@ -1,6 +1,7 @@
 <h1> Tv Shows List </h1>
 <app-tv-show-search class="show-list__search"
-                    [formControl]="searchForm">
+                    [(ngModel)]="searchData"
+                    (ngModelChange)="searchModelChanged.next($event)">
 </app-tv-show-search>
 <div class="show-card__grid">
   <ng-container *ngFor="let show of showList$ | async">

@@ -11,7 +11,7 @@ import { SearchShowResponse, Show } from '../interfaces/show.interface';
 })
 export class TvShowService {
 
-  readonly defaultSearchParam = 'Show';
+  readonly defaultSearchParam = 'Fringe';
   readonly basePath = environment.tvmazeApiUrl;
 
   private _lastSearchParam: string;
@@ -31,6 +31,6 @@ export class TvShowService {
   }
 
   get lastSearchParam(): string {
-    return this._lastSearchParam;
+    return this._lastSearchParam || this.defaultSearchParam;
   }
 }

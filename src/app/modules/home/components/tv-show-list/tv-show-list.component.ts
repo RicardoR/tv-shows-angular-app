@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, map, Observable, Subject, takeUntil, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, Observable, Subject, Subscription, throwIfEmpty, takeUntil } from 'rxjs';
 
 import { TvShowService } from '../../services/tv-show.service';
 import { SearchShowResponse, Show } from '../../interfaces/show.interface';
@@ -13,10 +12,11 @@ import { HomeRoutes } from '../../home.routes';
   styleUrls: ['./tv-show-list.component.scss'],
 })
 export class TvShowListComponent implements OnInit, OnDestroy {
-  showList$: Observable<Show[]>;
-  searchForm = new FormControl('Show');
-  lastSearchData: string;
   private onDestroy$ = new Subject<void>();
+
+  showList$: Observable<Show[]>;
+  searchData = this.tvShowService.lastSearchParam;
+  searchModelChanged: Subject<string> = new Subject<string>();
 
   constructor(
     private tvShowService: TvShowService,
@@ -25,12 +25,10 @@ export class TvShowListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.setList();
-    this.listenToSearchControl();
-    this.lastSearchData = this.tvShowService.lastSearchParam;
+    this.listenChanges();
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.onDestroy$.next();
     this.onDestroy$.complete();
   }
@@ -41,19 +39,18 @@ export class TvShowListComponent implements OnInit, OnDestroy {
     });
   }
 
-  private listenToSearchControl(): void {
-    this.searchForm.valueChanges
+  private listenChanges(): void {
+    this.searchModelChanged
       .pipe(
-        takeUntil<any>(this.onDestroy$),
         debounceTime(300),
-        tap((data) => this.setList(data))
+        distinctUntilChanged(),
+        takeUntil(this.onDestroy$)
       )
-      .subscribe();
+      .subscribe(() => this.setList());
   }
 
-  private setList(searchQuery?: string): void {
-    const search = searchQuery ?? this.tvShowService.lastSearchParam;
-    this.showList$ = this.tvShowService.searchShows(search).pipe(
+  private setList(): void {
+    this.showList$ = this.tvShowService.searchShows(this.searchData).pipe(
       map((data: SearchShowResponse[]) => data.slice(0, 6)),
       map((data: SearchShowResponse[]) =>
         data.flatMap((showResponse) => showResponse.show)
