@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 
@@ -38,15 +38,19 @@ describe('TvShowListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get the shows at on init', () => {
+  it('should get the shows when search shows emits value', fakeAsync(() => {
+    component.searchModelChanged.next('show');
+    tick(300);
     expect(tvShowServiceSpy.searchShows).toHaveBeenCalled();
-  });
+  }));
 
-  it('showList$ should contain a list with 6 shows', () => {
-    component.showList$.subscribe((shows: Show[]) => {
+  it('showList$ should contain a list with 6 shows', fakeAsync(() => {
+    component.searchModelChanged.next('show');
+    tick(300);
+    component.showList$?.subscribe((shows: Show[]) => {
       expect(shows.length).toBe(6);
     });
-  });
+  }));
 
   it('goToShow should redirect to the selected show', () => {
     const show = { id: 23 } as Show;

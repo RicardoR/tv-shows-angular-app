@@ -6,7 +6,7 @@ import { RatingComponent } from './rating.component';
 describe('RatingComponent', () => {
   let component: RatingComponent;
   let fixture: ComponentFixture<RatingComponent>;
-
+  let clientWidth: number;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RatingComponent, CommonModule],
@@ -18,6 +18,13 @@ describe('RatingComponent', () => {
     fixture = TestBed.createComponent(RatingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    clientWidth = component.ratingStars.nativeElement.clientWidth;
+  }
+
+  function getWidthFromRatingStars(): number {
+    const width = component.ratingStars.nativeElement.style.width;
+    const widthValue = width.split('px');
+    return parseInt(widthValue[0]);
   }
 
   describe('AfterViewInit', function () {
@@ -29,28 +36,24 @@ describe('RatingComponent', () => {
       createComponent();
       component.rating = 1;
       component.ngAfterViewInit();
-      expect(component.ratingStars.nativeElement.style.width).toBe('18px')
+      const ratingsStartsWidth = getWidthFromRatingStars();
+      expect(clientWidth).toBeGreaterThan(ratingsStartsWidth);
     });
 
     it('should calculate the ratingStarts width for 5 stars', () => {
       createComponent();
       component.rating = 5;
       component.ngAfterViewInit();
-      expect(component.ratingStars.nativeElement.style.width).toBe('90px')
-    });
-
-    it('should calculate the ratingStarts width for 5.5 stars', () => {
-      createComponent();
-      component.rating = 5.5;
-      component.ngAfterViewInit();
-      expect(component.ratingStars.nativeElement.style.width).toBe('98px')
+      const ratingsStartsWidth = getWidthFromRatingStars();
+      expect(clientWidth).toBeGreaterThan(ratingsStartsWidth);
     });
 
     it('should calculate the ratingStarts width for 10 stars', () => {
       createComponent();
       component.rating = 10;
       component.ngAfterViewInit();
-      expect(component.ratingStars.nativeElement.style.width).toBe('179px')
+      const ratingsStartsWidth = getWidthFromRatingStars();
+      expect(clientWidth).toBe(ratingsStartsWidth);
     });
 
     it('ratingStarts width should be empty for an empty value', () => {
